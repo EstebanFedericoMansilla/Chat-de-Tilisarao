@@ -17,6 +17,18 @@ services:
       - ./database/pg_hba.conf:/etc/postgresql/pg_hba.conf
       - ./database/db.sql:/docker-entrypoint-initdb.d/init.sql
     command: postgres -c config_file=/etc/postgresql/postgresql.conf
+  chatapp:
+    build: ./src
+    container_name: chatapp
+    environment:
+      DB_HOST: chatdb
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      DB_NAME: chat_app
+    ports:
+      - 3000:3000
+    depends_on:
+      - chatdb
 
 volumes:
   postgres_data:

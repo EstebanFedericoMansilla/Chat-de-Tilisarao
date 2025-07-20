@@ -1,8 +1,30 @@
-# Dependencies
+# Dependencias de Node.js
 node_modules/
 
-# Build
-dist/
+# Archivos de logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# Environment variables
+# Archivos del entorno
 .env
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de compilación
+/dist
+/build
+
+# Archivos temporales
+*.tmp
+*.swp
+*.swo
+
+# Archivos de cobertura de pruebas
+coverage/
+
+# Archivos de base de datos temporales
+*.sqlite
+*.db
