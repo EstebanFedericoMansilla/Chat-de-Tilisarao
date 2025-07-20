@@ -16,10 +16,20 @@ class User {
   }
 
   static async validatePassword(nick, password) {
-    const user = await this.findByNick(nick);
-    if (!user) return false;
-    const match = await bcrypt.compare(password, user.password);
-    return match ? user : false;
+    try {
+      console.log('Validando contraseña para usuario:', nick);
+      const user = await this.findByNick(nick);
+      if (!user) {
+        console.log('Usuario no encontrado:', nick);
+        return false;
+      }
+      const match = await bcrypt.compare(password, user.password);
+      console.log('Contraseña válida para', nick, ':', match);
+      return match ? user : false;
+    } catch (error) {
+      console.error('Error validando contraseña:', error);
+      return false;
+    }
   }
 }
 
