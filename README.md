@@ -1,100 +1,48 @@
-# Chat de Tilisarao - Aplicación de Chat Full Stack
-
-Una aplicación de chat simple construida completamente con tecnologías JavaScript para el frontend, backend y base de datos.
+# Javascript Full Stack
+is a simple chat that was built with entire javascript technologies, for the frontend, backend and database. 
 
 ![](docs/screenshot.png)
 
-## Tecnologías Utilizadas
-- **Frontend**: HTML, CSS, JavaScript, Bootstrap 4
-- **Backend**: Node.js
-  - Express.js
+# Used Technologies
+- Nodejs
+  - Express
   - Socket.io
-- **Base de Datos**: PostgreSQL
+- PostgreSQL
 
-## Instalación Local
+## Install Project
 
 ```bash
-git clone <tu-repositorio>
-cd chat-javascript-fullstack-main
+git clone https://github.com/fazt/chat-javascript-fullstack.git
+cd chat-javascript-fullstack
 npm install
 ```
 
-## Configuración de Variables de Entorno
-
-Copia el archivo `env.example` a `.env` y configura las variables:
+## Create .env file
 
 ```bash
-cp env.example .env
+DATABASE_URL=postgresql://postgres:postgres@localhost:5432/chat_app
 ```
 
-Edita el archivo `.env` con tus configuraciones:
+Remember to replace the DATABASE_URL with your own PostgreSQL URI.
 
-```bash
-# Configuración del servidor
-PORT=3000
-
-# Configuración de la base de datos PostgreSQL
-DATABASE_URL=postgresql://username:password@host:port/database_name
-```
-
-## Ejecutar el Proyecto Localmente
+## Run the project
 
 ```bash
 npm run dev
 ```
 
-## Despliegue en la Nube
+### Docker Compose
 
-### Preparación para Despliegue
+```bash
+docker compose up -d
 
-1. **Configurar Base de Datos**: Asegúrate de tener una base de datos PostgreSQL configurada en tu proveedor de nube.
-
-2. **Variables de Entorno**: Configura las siguientes variables de entorno en tu plataforma de despliegue:
-   - `PORT`: Puerto del servidor (generalmente configurado automáticamente)
-   - `DATABASE_URL`: URL de conexión a tu base de datos PostgreSQL
-
-3. **Script de Inicio**: El proyecto ya está configurado para usar `npm start` como comando de inicio.
-
-### Despliegue en Cloud Platforms
-
-#### Render.com
-- Conecta tu repositorio de GitHub
-- Selecciona "Web Service"
-- Configura las variables de entorno
-- Usa `npm start` como comando de inicio
-
-#### Railway
-- Conecta tu repositorio de GitHub
-- Configura las variables de entorno
-- El proyecto se desplegará automáticamente
-
-#### Heroku
-- Conecta tu repositorio de GitHub
-- Configura las variables de entorno en Settings > Config Vars
-- El proyecto se desplegará automáticamente
-
-## Estructura del Proyecto
-
-```
-chat-javascript-fullstack-main/
-├── src/
-│   ├── app.js          # Configuración de Express
-│   ├── config.js       # Variables de configuración
-│   ├── database.js     # Conexión a PostgreSQL
-│   ├── index.js        # Punto de entrada del servidor
-│   ├── sockets.js      # Configuración de Socket.io
-│   └── models/         # Modelos de datos
-├── public/             # Archivos estáticos
-├── database/           # Scripts de base de datos
-└── package.json        # Dependencias y scripts
+docker exec -it chatdb psql -U postgres -d chat_app
 ```
 
-## Recursos Utilizados
+then in order to create the tables, paste the content of the database/db.sql file and run it.
 
-- [Bootstrap 4 CDN](http://getbootstrap.com/docs/4.0/getting-started/introduction/)
+# Links and Resources used in this project
+
+- [Bootstrap4 CDN](http://getbootstrap.com/docs/4.0/getting-started/introduction/)
 - [Background Gradient Color](https://uigradients.com/#Lawrencium)
 - [jQuery CDN](https://code.jquery.com/)
-
-## Licencia
-
-ISC

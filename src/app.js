@@ -5,19 +5,6 @@ import crypto from "crypto";
 
 const app = express();
 
-// Configurar CORS para permitir peticiones desde cualquier origen
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-  
-  if (req.method === 'OPTIONS') {
-    res.sendStatus(200);
-  } else {
-    next();
-  }
-});
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 // static files
@@ -55,26 +42,17 @@ app.post('/register', async (req, res) => {
 
 // Ruta de login
 app.post('/login', async (req, res) => {
-  console.log('Intento de login:', { nick: req.body.nick, hasPassword: !!req.body.password });
   const { nick, password } = req.body;
-  if (!nick || !password) {
-    console.log('Login fallido: datos incompletos');
-    return res.json({ success: false, message: 'Datos incompletos.' });
-  }
+  if (!nick || !password) return res.json({ success: false, message: 'Datos incompletos.' });
   try {
     const user = await User.validatePassword(nick, password);
-    if (!user) {
-      console.log('Login fallido: credenciales incorrectas para', nick);
-      return res.json({ success: false, message: 'Credenciales incorrectas.' });
-    }
+    if (!user) return res.json({ success: false, message: 'Credenciales incorrectas.' });
     // Generar token de sesión
     const token = generateSessionToken();
     const expiresAt = Date.now() + SESSION_DURATION;
     sessionTokens.set(token, { nick, expiresAt, createdAt: Date.now() });
-    console.log('Login exitoso para:', nick);
     res.json({ success: true, token });
   } catch (err) {
-    console.error('Error en login:', err);
     res.json({ success: false, message: 'Error en el login.' });
   }
 });
